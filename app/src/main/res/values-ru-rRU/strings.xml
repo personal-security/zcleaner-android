@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ZCleaner</string>
+    <string name="use_options_for_clean">Выберите опции</string>
+    <string name="start_clean">Начать очистку</string>
+    <string name="initialization">Инициализация…</string>
+    <string name="stop_clean">Стоп</string>
+    <string name="delete_viruses">Удалить вирусы</string>
+    <string name="ok">Ок</string>
+    <string name="total_cleaned">Всего обработано данных</string>
+    <string name="mb">MB</string>
+    <string name="Contacts">Контакты</string>
+    <string name="sms">СМС</string>
+    <string name="file">Файлы</string>
+    <string name="virus">Вирусы</string>
+    <string name="optim">Оптимизировать ОС</string>
+    <string name="data">Персональная информация</string>
+    <string name="duplicated_contacts">Дублирующиеся контакты</string>
+    <string name="cache">Временные файлы</string>
+    <string name="viruses_found">Вирусов найдено</string>
+    <string name="viruses_delete">Вирусов удалено</string>
+    <string name="memory_cleared">Памяти очищено</string>
+    <string name="scanings">Поиск</string>
+    <string name="personal_data">Персональная информация</string>
+</resources>

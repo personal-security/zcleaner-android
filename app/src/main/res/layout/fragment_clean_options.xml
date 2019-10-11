@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/textColorWhite"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/exo2"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/padding_standard"
+            android:paddingTop="@dimen/padding_standard"
+            android:text="@string/use_options_for_clean"
+            android:textColor="@color/textColorGreyLight" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            android:paddingBottom="15dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/contacts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/wh_btn_centre" />
+
+                <ImageView
+                    android:id="@+id/contactsIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_contacts" />
+                <TextView
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:text="@string/Contacts"
+                    android:fontFamily="@font/exo2medium"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/sms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/wh_btn_centre" />
+
+                <ImageView
+                    android:id="@+id/smsIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_sms" />
+                <TextView
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:text="@string/sms"
+                    android:fontFamily="@font/exo2medium"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/wh_btn_centre" />
+
+                <ImageView
+                    android:id="@+id/fileIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_file" />
+                <TextView
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:fontFamily="@font/exo2medium"
+                    android:text="@string/file"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/virus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/wh_btn_centre" />
+
+                <ImageView
+                    android:id="@+id/virusIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_viruses" />
+                <TextView
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:text="@string/virus"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/exo2medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/optim"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/wh_btn_centre" />
+
+                <ImageView
+                    android:id="@+id/optimIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_optimize" />
+                <TextView
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:text="@string/optim"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/exo2medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/wh_btn_centre" />
+
+                <ImageView
+                    android:id="@+id/dataIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_data" />
+                <TextView
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:text="@string/data"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/exo2medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+        </LinearLayout>
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/admob_banner_id">
+        </com.google.android.gms.ads.AdView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/start_clean"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/standardBlue"
+            android:fontFamily="@font/exo2medium"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/padding_medium"
+            android:paddingTop="@dimen/padding_medium"
+            android:text="@string/start_clean"
+            android:textColor="@color/textColorWhite"
+            android:textSize="20sp" />
+    </LinearLayout>
+</ScrollView>

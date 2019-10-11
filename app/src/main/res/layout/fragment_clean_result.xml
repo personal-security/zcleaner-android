@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/textColorWhite"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/exo2medium"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/padding_standard"
+            android:paddingTop="@dimen/padding_standard"
+            android:text="@string/total_cleaned"
+            android:textColor="@color/textColorGreyLight" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/mb_cleaned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2medium"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/textColorGreen"
+                android:textSize="64sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2"
+                android:gravity="center_horizontal"
+                android:text="@string/mb"
+                android:textColor="@color/textColorGreen"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/resBox"
+            android:padding="@dimen/padding_standard"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/greyButtonBackground"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/standardBlue"
+            android:fontFamily="@font/exo2medium"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/padding_medium"
+            android:paddingTop="@dimen/padding_medium"
+            android:text="@string/ok"
+            android:textColor="@color/textColorWhite"
+            android:textSize="20sp" />
+    </LinearLayout>
+</ScrollView>

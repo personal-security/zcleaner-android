@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout
+        android:id="@+id/prBar"
+      android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp">
+
+        <ImageView
+            android:id="@+id/prBar2"
+            android:layout_gravity="center"
+            android:src="@drawable/pr2"
+            android:scaleType="centerInside"
+            android:layout_width="135dp"
+            android:layout_height="135dp" />
+
+        <ImageView
+            android:id="@+id/prBar1"
+            android:layout_gravity="center"
+            android:src="@drawable/pr1"
+            android:scaleType="centerInside"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_logo_wait"
+            android:scaleType="centerInside"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+        <TextView
+            android:id="@+id/prViewProgress"
+            android:layout_below="@+id/prBar"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/exo2medium"
+            android:gravity="center_horizontal"
+            android:text="Prepare...please wait..."
+            android:textColor="@color/textColorGreyDark" />
+
+        <TextView
+            android:id="@+id/prView"
+            android:layout_below="@+id/prBar"
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/exo2medium"
+            android:gravity="center_horizontal"
+            android:text="@string/delete_viruses"
+            android:textColor="@color/textColorGreyDark" />
+
+
+
+        <TextView
+            android:layout_alignParentBottom="true"
+            android:id="@+id/stop_clean"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/greyButtonBackground"
+            android:gravity="center_horizontal"
+            android:fontFamily="@font/exo2medium"
+            android:paddingBottom="@dimen/padding_medium"
+            android:paddingTop="@dimen/padding_medium"
+            android:text="@string/stop_clean"
+            android:textColor="@color/textColorBlue"
+            android:textSize="20sp" />
+
+</RelativeLayout>

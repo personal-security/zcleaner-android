@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ZCleaner</string>
+    <string name="use_options_for_clean">Optionen zum Aufräumen</string>
+    <string name="start_clean">Aufräumen starten</string>
+    <string name="initialization">Initialisierung …</string>
+    <string name="stop_clean">Stop</string>
+    <string name="delete_viruses">Viren löschen</string>
+    <string name="ok">Ok</string>
+    <string name="total_cleaned">Gesamte verwaltete Dateien</string>
+    <string name="mb">MB</string>
+
+    <string name="Contacts">Kontakte</string>
+    <string name="sms">SMS</string>
+    <string name="file">Dateisystem</string>
+    <string name="virus">Viren</string>
+    <string name="optim">Betriebssystem optimieren</string>
+    <string name="data">Persönliche Daten</string>
+
+    <string name="duplicated_contacts">Kontakte duplizieren</string>
+    <string name="cache">Cache</string>
+    <string name="viruses_found">Gefundene Viren</string>
+    <string name="viruses_delete">Gelöschte Viren</string>
+    <string name="memory_cleared">Speicher gelöscht</string>
+    <string name="personal_data">Persönliche Daten</string>
+    <string name="scanings">Scannen</string>
+</resources>
