@@ -1,5 +1,5 @@
 ## ZCleaner - best free android cleaner.
 
-in dev...
+![ZCleaner Logo](/docs/banner_180х120.png)
 
-
+id dev...
