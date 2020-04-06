@@ -5,6 +5,8 @@ android:
   components:
     # Update Android SDK Tools
     - tools
+    - platform-tools
+    - tools
 
     - build-tools-28.0.3
     - android-28
@@ -15,6 +17,4 @@ android:
 before_install:
   - pwd
   - ls -la
-  - chmod +x /.gradlew
-script:
-  - "/.gradlew assembleMyBuild --stacktrace"
+  - chmod +x ./gradlew
