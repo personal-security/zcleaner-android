@@ -1,5 +1,6 @@
 package com.xlab13.zcleaner;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import butterknife.OnClick;
 
 import static com.xlab13.zcleaner.utils.FS.scanAVFiles;
 import static com.xlab13.zcleaner.utils.FS.writeIntConfig;
+import static java.lang.Thread.sleep;
 
 public class CleaningProgressFragment extends BaseFragment {
 
@@ -51,7 +53,6 @@ public class CleaningProgressFragment extends BaseFragment {
     Runnable myRunnable = new Runnable() {
         @Override
         public void run() {
-
              FragmentUtil.replaceFragment(getFragmentManager(),
                       BaseFragment.newInstance(CleanResultFragment.class, bundle), false);
         }
@@ -108,7 +109,6 @@ public class CleaningProgressFragment extends BaseFragment {
         getActivity().getSupportFragmentManager().popBackStack();
     }
 
-
     private class StoryCountDown extends CountDownTimer {
         public StoryCountDown(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
@@ -121,7 +121,7 @@ public class CleaningProgressFragment extends BaseFragment {
 
         @Override
         public void onFinish() {
-            prView.setText("DONE!");
+            prView.setText("Please wait!");
         }
     }
 
@@ -130,6 +130,50 @@ public class CleaningProgressFragment extends BaseFragment {
         protected void onPreExecute() {
             super.onPreExecute();
             //tvInfo.setText("Begin");
+        }
+
+        @SuppressLint("SetTextI18n")
+        private Integer removeSubFiles(JSONArray jas){
+            Integer delete_file_size = 0;
+            try {
+                //JSONArray jas = new JSONArray(list);
+                for (int i = 0; i < jas.length(); i++) {
+                    Log.i("===", "json : " + jas.toString());
+                    if (jas.getJSONObject(i).getString("type").equals("dir")){
+                        String path = jas.getJSONObject(i).getString("path");
+                        //prViewData.setText(path); // TODO: fix ui
+                        //getActivity().runOnUiThread(() -> prViewData.setText(path));
+                        delete_file_size += removeSubFiles(jas.getJSONObject(i).getJSONArray("parent"));
+                        //sleep(300);
+                    }else {
+                        if (jas.getJSONObject(i).has("path")) {
+                            final String file = jas.getJSONObject(i).getString("path");
+
+                            File curfile = new File(file);
+                            if (curfile.isFile()) {
+                                Integer file_size = (int) curfile.length();
+                                if (file.endsWith(".apk") || file.endsWith(".log") || file.endsWith(".tmp"))
+                                    try {
+                                        if (curfile.delete()) {
+                                            delete_file_size += file_size;
+                                        }
+                                    } catch (Exception e) {
+
+                                    }
+                            }
+
+                            Log.i("===", "file : " + file);
+
+                            //prViewData.setText(file);
+                            //sleep(1000);
+                        }
+                    }
+                }
+                prViewData.setText(getString(R.string.scanings)+"...");
+            } catch (Exception e) {
+                Log.e("===", e.toString());
+            }
+            return delete_file_size;
         }
 
         @Override
@@ -152,30 +196,11 @@ public class CleaningProgressFragment extends BaseFragment {
                 Integer delete_file_size = 0;
                 String list = FS.getRootTree();
                 try {
-                    JSONArray jas = new JSONArray(list);
-                    for (int i = 0; i < jas.length(); i++) {
-                        if (jas.getJSONObject(i).has("path")) {
-                            final String file = jas.getJSONObject(i).getString("path");
-
-                            File curfile = new File(file);
-                            if (curfile.isFile()) {
-                                Integer file_size = (int)curfile.length();
-                                if (file.endsWith(".apk"))
-                                    if (curfile.delete()) {
-                                        delete_file_size += file_size;
-                                    }
-                            }
-
-                            Log.e("===", "file : " + file);
-                            getActivity().runOnUiThread(() -> prViewData.setText(file));
-                            //prViewData.setText(file);
-                            //sleep(1000);
-                        }
-                    }
-                    prViewData.setText("File scan finished");
-                } catch (Exception e) {
-                    Log.e("===", e.toString());
+                    delete_file_size = removeSubFiles(new JSONArray(list));
+                }catch (Exception e){
+                    Log.e("===",e.toString());
                 }
+
                 FS.writeIntConfig(getContext(), "delete_file_size", delete_file_size);
                 writeIntConfig(getContext(), "delete_file_size", delete_file_size);
             }

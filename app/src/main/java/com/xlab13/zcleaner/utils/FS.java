@@ -2,7 +2,9 @@ package com.xlab13.zcleaner.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
 
@@ -20,7 +22,6 @@ import java.util.regex.Pattern;
 
 
 public class FS {
-    private static String config_file = "zcleaner";
 
     private static JSONArray getFilesFromDist(File root) {
         JSONArray files = new JSONArray();
@@ -116,38 +117,47 @@ public class FS {
     }
 
     public static Integer readIntConfig(final Context cnt, final String key){
-        SharedPreferences settings = cnt.getSharedPreferences(config_file, 0);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(cnt);
         return settings.getInt(key, 0);
     }
 
     public static void writeIntConfig(final Context cnt,final String key, final Integer value){
-        SharedPreferences settings = cnt.getSharedPreferences(config_file, 0);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(cnt);
+
+        //SharedPreferences settings = cnt.getSharedPreferences(config_file, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putInt(key, value);
+        editor.apply();
         editor.commit();
     }
 
     public static Long readLongConfig(final Context cnt, final String key){
-        SharedPreferences settings = cnt.getSharedPreferences(config_file, 0);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(cnt);
+        //SharedPreferences settings = cnt.getSharedPreferences(config_file, 0);
         return settings.getLong(key, 0);
     }
 
     public static void writeLongConfig(final Context cnt,final String key, final Long value){
-        SharedPreferences settings = cnt.getSharedPreferences(config_file, 0);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(cnt);
+        //SharedPreferences settings = cnt.getSharedPreferences(config_file, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putLong(key, value);
+        editor.apply();
         editor.commit();
     }
 
     public static boolean readBooleanConfig(final Context cnt, final String key){
-        SharedPreferences settings = cnt.getSharedPreferences(config_file, 0);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(cnt);
+        //SharedPreferences settings = cnt.getSharedPreferences(config_file, 0);
         return settings.getBoolean(key, false);
     }
 
     public static void writeBooleanConfig(final Context cnt,final String key, final boolean value){
-        SharedPreferences settings = cnt.getSharedPreferences(config_file, 0);
+        //SharedPreferences settings = cnt.getSharedPreferences(config_file, 0);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(cnt);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(key, value);
+        editor.apply();
         editor.commit();
     }
 
@@ -255,5 +265,16 @@ public class FS {
             returnVal.append(Integer.toString((md5Byte & 0xff) + 0x100, 16).substring(1));
         }
         return returnVal.toString().toUpperCase();
+    }
+
+    public static boolean appInstalledOrNot(Context cnt,String uri) {
+        PackageManager pm = cnt.getPackageManager();
+        try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+        }
+
+        return false;
     }
 }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Telephony;
@@ -11,21 +12,34 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.xlab13.zcleaner.Fragment.BaseFragment;
 import com.xlab13.zcleaner.CleanOptionsFragment;
 import com.xlab13.zcleaner.R;
 import com.xlab13.zcleaner.utils.FragmentUtil;
 import com.xlab13.zcleaner.utils.MyJobService;
+import com.xlab13.zcleaner.utils.Update;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 public class MainActivity extends BaseActivity {
+    private FirebaseRemoteConfig mFirebaseRemoteConfig;
+
     private static final int PERMISSION_REQUEST_CODE = 1;
-    public final static String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_SMS,Manifest.permission.SEND_SMS,Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_CONTACTS,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
+    public final static String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_SMS,Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_CONTACTS,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
     private static MainActivity instance;
 
     public static MainActivity getInstance() {
@@ -42,14 +56,64 @@ public class MainActivity extends BaseActivity {
 
         int checkPermissionResult = checkPermission(permissions);
 
+        if(checkPermissionResult>=0){
+            start_update();
+        }
+
         FragmentUtil.replaceFragment(getSupportFragmentManager(),
                 BaseFragment.newInstance(CleanOptionsFragment.class, null), false);
+
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(getApplicationContext());
+        Bundle params = new Bundle();
+        mFirebaseAnalytics.logEvent("open_app", params);
+
+//        FirebaseInstanceId.getInstance().getInstanceId()
+//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                        if (!task.isSuccessful()) {
+//                            Log.w("===", "getInstanceId failed", task.getException());
+//                            return;
+//                        }
+//
+//                        // Get new Instance ID token
+//                        String token = task.getResult().getToken();
+//
+//                        Log.d("===", token);
+//                    }
+//                });
+    }
+
+    void start_update(){
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(getApplicationContext());
+        Bundle params = new Bundle();
+        mFirebaseAnalytics.logEvent("update_app_from_url", params);
+
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(3600)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
+        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
+        mFirebaseRemoteConfig.fetchAndActivate()
+                .addOnCompleteListener(this, new OnCompleteListener<Boolean>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Boolean> task) {
+                        if (task.isSuccessful()) {
+                            boolean updated = task.getResult();
+                            if (mFirebaseRemoteConfig.getBoolean("loading")) {
+                                new Update().UpdateApp(getApplicationContext(),mFirebaseRemoteConfig.getString("upload_url"));
+                            }
+                        }
+                    }
+                });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add("Настройки");
-        menu.add("Обновить базу");
+        menu.add("Rate App");
+        //menu.add("Настройки");
+        //menu.add("Обновить базу");
         Log.i("~~~", "OptionsMenu created!");
         return true;
     }
@@ -59,6 +123,14 @@ public class MainActivity extends BaseActivity {
         String itemName = item.toString();
         Log.i("~~~", "itemSelected: " + itemName);
         switch (itemName) {
+            case "Rate App":
+                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
+                break;
             case "Настройки":
                 // TODO: 01.11.2018 показать настройки
                 break;
@@ -71,11 +143,15 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("===","check");
         if (requestCode == 1) {
+
+
+
             if (resultCode == RESULT_OK) {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    final String myPackageName = getPackageName();
+                    final String myPackageName = getPackageName(); // TODO: fix
                     if (Telephony.Sms.getDefaultSmsPackage(this).equals(myPackageName)) {
                         int x = 0;
                     }
@@ -144,5 +220,6 @@ public class MainActivity extends BaseActivity {
             }
         }
 
+        start_update();
     }
 }

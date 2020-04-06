@@ -22,4 +22,6 @@
     <string name="memory_cleared">Памяти очищено</string>
     <string name="scanings">Поиск</string>
     <string name="personal_data">Персональная информация</string>
+    <string name="notification_need_check_new">Установлено новой приложение, необходима проверка.</string>
+    <string name="notification_need_check_remove">Приложение удалено, необходимо очистить систему.</string>
 </resources>

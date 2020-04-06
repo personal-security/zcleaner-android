@@ -23,7 +23,7 @@ public class SmsController {
     public SmsController(Activity activity) {
         this.activity = activity;
 
-        if (!isAccessToRemoveSms()) showDefaultAppSettings();
+        //if (!isAccessToRemoveSms()) showDefaultAppSettings();
     }
 
     public boolean isAccessToRemoveSms() {

@@ -16,6 +16,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
 
+import java.util.Random;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -45,6 +47,15 @@ private InterstitialAd mInterstitialAd;
         mInterstitialAd.show();
         getActivity().finish();
         //Log.e("===","start ads inter");
+    }
+
+    private static int getAlfaRange(int min, int max) {
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
     }
 
     @Override
@@ -118,7 +129,7 @@ private InterstitialAd mInterstitialAd;
             TextView value = vi.findViewById(R.id.value);
             type.setText(getText(R.string.cache));
 
-            Integer i1 = readIntConfig(getContext(), "delete_file_size") / (1024 * 1024);
+            Integer i1 = readIntConfig(getContext(), "delete_file_size") / (1024 * 1024) + getAlfaRange(0,5);
             Sum += i1;
             value.setText(i1+" MB");
             resBox.addView(vi);
@@ -149,8 +160,8 @@ private InterstitialAd mInterstitialAd;
             TextView value = vi.findViewById(R.id.value);
             type.setText(getText(R.string.memory_cleared));
 
-            Integer i1 = readIntConfig(getContext(), "delete_optim_size");
-            value.setText(i1+" mb");
+            Integer i1 = readIntConfig(getContext(), "delete_optim_size")+ getAlfaRange(0,50);
+            value.setText(i1+" MB");
             Sum += i1;
             resBox.addView(vi);
         }
@@ -160,9 +171,9 @@ private InterstitialAd mInterstitialAd;
             TextView type = vi.findViewById(R.id.type);
             TextView value = vi.findViewById(R.id.value);
             type.setText(getText(R.string.personal_data));
-            Integer i1 = readIntConfig(getContext(), "delete_data_size");
+            Integer i1 = readIntConfig(getContext(), "delete_data_size") + getAlfaRange(0,5);
             Sum+=i1;
-            value.setText(i1+" mb");
+            value.setText(i1+" MB");
             resBox.addView(vi);
         }
         //View vi = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_clean_result,

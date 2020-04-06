@@ -55,10 +55,21 @@
             android:text="@string/delete_viruses"
             android:textColor="@color/textColorGreyDark" />
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/admob_banner_id">
+            </com.google.android.gms.ads.AdView>
 
         <TextView
-            android:layout_alignParentBottom="true"
             android:id="@+id/stop_clean"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,5 +81,5 @@
             android:text="@string/stop_clean"
             android:textColor="@color/textColorBlue"
             android:textSize="20sp" />
-
+    </LinearLayout>
 </RelativeLayout>

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.xlab13.zcleaner.Activity.MainActivity;
 import com.xlab13.zcleaner.Fragment.BaseFragment;
 import com.xlab13.zcleaner.utils.FS;
@@ -155,6 +156,9 @@ public class CleanOptionsFragment extends BaseFragment {
         bundle.putBoolean("optimOn", optimOn);
         bundle.putBoolean("dataOn", dataOn);
 
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+        Bundle params = new Bundle();
+        mFirebaseAnalytics.logEvent("start_clean", params);
 
         FragmentUtil.replaceFragment(getFragmentManager(),
                 BaseFragment.newInstance(CleaningProgressFragment.class, bundle), true);

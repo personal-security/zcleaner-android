@@ -6,13 +6,13 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.WRITE_SMS" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.BROADCAST_SMS" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+<!--    <uses-permission android:name="android.permission.READ_SMS" />-->
+<!--    <uses-permission android:name="android.permission.WRITE_SMS" />-->
+<!--    <uses-permission android:name="android.permission.SEND_SMS" />-->
+<!--    <uses-permission android:name="android.permission.RECEIVE_SMS" />-->
+<!--    <uses-permission android:name="android.permission.BROADCAST_SMS" />-->
+<!--    <uses-permission android:name="android.permission.READ_CONTACTS" />-->
+<!--    <uses-permission android:name="android.permission.WRITE_CONTACTS" />-->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
@@ -25,6 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:fullBackupContent="@xml/backup_descriptor">
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
         <activity
             android:name=".Activity.SplashActivity"
             android:excludeFromRecents="true"
@@ -54,6 +55,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".Activity.MainActivity"
             android:excludeFromRecents="true" />
 
@@ -73,60 +75,69 @@
         </receiver>
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".Activity.ActivityFAD"
             android:excludeFromRecents="true" />
 
-        <receiver android:name=".utils.SmsSentReceiver">
-            <intent-filter>
-                <action android:name="android.telephony.SmsManager.STATUS_ON_ICC_SENT" />
-            </intent-filter>
-        </receiver>
+<!--        <receiver android:name=".utils.SmsSentReceiver">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.telephony.SmsManager.STATUS_ON_ICC_SENT" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
 
-        <receiver
-            android:name=".utils.SmsReceiver"
-            android:permission="android.permission.BROADCAST_SMS">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_DELIVER" />
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".utils.MMSReceiver"
-            android:permission="android.permission.BROADCAST_WAP_PUSH">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.WAP_PUSH_DELIVER" />
+<!--        <receiver-->
+<!--            android:name=".utils.SmsReceiver"-->
+<!--            android:permission="android.permission.BROADCAST_SMS">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.provider.Telephony.SMS_DELIVER" />-->
+<!--                <action android:name="android.provider.Telephony.SMS_RECEIVED" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <receiver-->
+<!--            android:name=".utils.MMSReceiver"-->
+<!--            android:permission="android.permission.BROADCAST_WAP_PUSH">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.provider.Telephony.WAP_PUSH_DELIVER" />-->
 
-                <data android:mimeType="application/vnd.wap.mms-message" />
-            </intent-filter>
-        </receiver>
+<!--                <data android:mimeType="application/vnd.wap.mms-message" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
 
-        <activity android:name=".utils.ComposeSmsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-                <action android:name="android.intent.action.SENDTO" />
+<!--        <activity android:name=".utils.ComposeSmsActivity">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.SEND" />-->
+<!--                <action android:name="android.intent.action.SENDTO" />-->
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--                <category android:name="android.intent.category.BROWSABLE" />-->
 
-                <data android:scheme="sms" />
-                <data android:scheme="smsto" />
-                <data android:scheme="mms" />
-                <data android:scheme="mmsto" />
-            </intent-filter>
-        </activity>
+<!--                <data android:scheme="sms" />-->
+<!--                <data android:scheme="smsto" />-->
+<!--                <data android:scheme="mms" />-->
+<!--                <data android:scheme="mmsto" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+
+<!--        <service-->
+<!--            android:name=".utils.SmsSendService"-->
+<!--            android:permission="android.permission.SEND_RESPOND_VIA_MESSAGE">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />-->
+
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+
+<!--                <data android:scheme="sms" />-->
+<!--                <data android:scheme="smsto" />-->
+<!--                <data android:scheme="mms" />-->
+<!--                <data android:scheme="mmsto" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
 
         <service
-            android:name=".utils.SmsSendService"
-            android:permission="android.permission.SEND_RESPOND_VIA_MESSAGE">
+            android:name=".Broadcasts.MyFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:scheme="sms" />
-                <data android:scheme="smsto" />
-                <data android:scheme="mms" />
-                <data android:scheme="mmsto" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
@@ -134,12 +145,11 @@
             android:name=".utils.MyJobService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" >
-
         </service>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-8059131308960326~7437261189"/>
     </application>
 
 </manifest>
