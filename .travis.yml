@@ -3,6 +3,6 @@ jdk: oraclejdk8
 before_script:
 - ls -al
 - pwd
-- chmod +x gradlew
+- chmod +x ./gradlew
 script:
-- ./gradlew assembleRelease --stacktrace
+- sh gradlew assembleRelease --stacktrace
