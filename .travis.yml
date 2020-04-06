@@ -12,5 +12,9 @@ android:
     # Support library
     - extra-android-support
     - extra-android-m2repository
+before_install:
+  - pwd
+  - ls -la
+  - chmod +x /.gradlew
 script:
-  - ./gradlew assembleMyBuild --stacktrace
+  - "/.gradlew assembleMyBuild --stacktrace"
