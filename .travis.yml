@@ -1,2 +1,4 @@
 language: android
 dist: trusty
+before_script:
+  - chmod +x gradlew
