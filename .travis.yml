@@ -2,3 +2,5 @@ language: android
 dist: trusty
 before_script:
   - chmod +x gradlew
+script:
+  - ./gradlew assembleRelease --stacktrace
