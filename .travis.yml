@@ -1,6 +1,5 @@
 language: android
-jdk:
-  - oraclejdk8
+
 android:
   components:
     # Update Android SDK Tools
@@ -14,7 +13,20 @@ android:
     # Support library
     - extra-android-support
     - extra-android-m2repository
+  licenses:
+    - '.+'
+    
+sudo: required
+
+jdk:
+  - oraclejdk8
+
+install: true
+
 before_install:
   - pwd
   - ls -la
   - chmod +x ./gradlew
+  
+script:
+  - ./gradlew assembleRelease --stacktrace
