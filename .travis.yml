@@ -1,8 +1,6 @@
 language: android
 jdk:
   - oraclejdk8
-  - oraclejdk7
-  - openjdk7
 android:
   components:
     # Update Android SDK Tools
