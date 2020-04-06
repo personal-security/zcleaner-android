@@ -1,8 +1,2 @@
 language: android
 jdk: oraclejdk8
-before_script:
-- ls -al
-- pwd
-- chmod +x ./gradlew
-script:
-- sh gradlew assembleRelease --stacktrace
