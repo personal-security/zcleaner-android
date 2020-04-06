@@ -1,4 +1,12 @@
-install: gradle wrapper --gradle-version 4.2
 language: android
-install:
-  - chmod +x gradlew
+android:
+  components:
+    # Update Android SDK Tools
+    - tools
+
+    - build-tools-28.0.3
+    - android-28
+
+    # Support library
+    - extra-android-support
+    - extra-android-m2repository
