@@ -12,3 +12,5 @@ android:
     # Support library
     - extra-android-support
     - extra-android-m2repository
+script:
+  - ./gradlew assembleMyBuild --stacktrace
