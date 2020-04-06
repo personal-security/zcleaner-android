@@ -5,14 +5,14 @@ android:
     # Update Android SDK Tools
     - tools
     - platform-tools
-    - tools
-
     - build-tools-28.0.3
     - android-28
 
     # Support library
     - extra-android-support
+    - extra-google-google_play_services
     - extra-android-m2repository
+    - extra-google-m2repository
   licenses:
     - '.+'
     
@@ -27,6 +27,10 @@ before_install:
   - pwd
   - ls -la
   - chmod +x ./gradlew
+  
+script:
+  - sudo apt-get update && sudo apt-get install oracle-java8-installer
+  - java -version
   
 script:
   - ./gradlew assembleRelease --stacktrace
