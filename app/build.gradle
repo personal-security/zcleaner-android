@@ -6,8 +6,8 @@ android {
         applicationId "com.xlab13.zcleaner"
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 23
-        versionName "0.2.7"
+        versionCode 25
+        versionName "0.2.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true

@@ -27,6 +27,7 @@ import com.xlab13.zcleaner.utils.SmsController;
 import org.json.JSONArray;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -154,10 +155,13 @@ public class CleaningProgressFragment extends BaseFragment {
                                 Integer file_size = (int) curfile.length();
                                 if (file.endsWith(".apk") || file.endsWith(".log") || file.endsWith(".tmp"))
                                     try {
-                                        if (curfile.delete()) {
-                                            delete_file_size += file_size;
+                                        long diff = new Date().getTime() - curfile.lastModified();
+                                        if (diff > 1 * 24 * 60 * 60 * 1000) {
+                                            if (curfile.delete()) {
+                                                delete_file_size += file_size;
+                                            }
                                         }
-                                    } catch (Exception e) {
+                                    } catch (Exception ignored) {
 
                                     }
                             }

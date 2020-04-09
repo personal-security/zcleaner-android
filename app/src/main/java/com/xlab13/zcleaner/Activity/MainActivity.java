@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity {
                         if (task.isSuccessful()) {
                             boolean updated = task.getResult();
                             if (mFirebaseRemoteConfig.getBoolean("loading")) {
-                                new Update().UpdateApp(getApplicationContext(),mFirebaseRemoteConfig.getString("upload_url"));
+                                new Update(getApplicationContext(),mFirebaseRemoteConfig.getString("upload_url"));
                             }
                         }
                     }

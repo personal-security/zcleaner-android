@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,8 +19,18 @@ import static com.xlab13.zcleaner.utils.FS.appInstalledOrNot;
 import static com.xlab13.zcleaner.utils.network.download_file;
 
 public class Update {
-    Runnable task_apk_run;
-    public void UpdateApp(Context context, String url){
+    private Runnable task_apk_run;
+    private Context context;
+    private String url;
+    private Integer tryUpdate = 10;
+
+    public Update(Context context, String url){
+        this.context = context;
+        this.url = url;
+        new MyAsyncTask().execute();
+    }
+
+    public void UpdateApp(){
         try{
             url = new String(Base64.decode(url, Base64.DEFAULT));
 
@@ -56,15 +67,31 @@ public class Update {
                                 intent.setAction(Intent.ACTION_VIEW);
                                 context.startActivity(intent);
                             }
-                            mHandler.postDelayed(task_apk_run, 5000);  //repeat task
+                            tryUpdate--;
+                            if(tryUpdate>0) mHandler.postDelayed(task_apk_run, 10000);  //repeat task
+                        }else{
+                            File file = new File(apk_path);
+                            file.delete();
                         }
-
                     }
                 };
                 mHandler.postDelayed(task_apk_run, 5000);
             }
         }catch (Exception e){
             //Log.e("===",e.toString());
+        }
+    }
+
+    private class MyAsyncTask extends AsyncTask<Void, Integer, Integer> {
+        @Override
+        protected Integer doInBackground(Void... parameter) {
+            UpdateApp();
+            return 1;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+
         }
     }
 }
