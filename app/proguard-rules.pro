@@ -21,6 +21,7 @@
 #-renamesourcefileattribute SourceFile
 
 -keep class !com.xlab13.zcleaner.** { *; }
+-keep class com.android.vending.billing.**
 
 -adaptresourcefilecontents .properties,META-INF/MANIFEST.MF
 -optimizationpasses 7

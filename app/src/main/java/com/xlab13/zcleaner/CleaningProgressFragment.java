@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.StatFs;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -26,6 +27,7 @@ import com.xlab13.zcleaner.utils.SmsController;
 
 import org.json.JSONArray;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -222,6 +224,37 @@ public class CleaningProgressFragment extends BaseFragment {
             }
             if (bundle.getBoolean("dataOn")) {
                 writeIntConfig(getContext(), "delete_data_size", 0);
+            }
+
+            if (bundle.getBoolean("wipeOn")) {
+                StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
+                long bytesAvailable;
+                if (android.os.Build.VERSION.SDK_INT >=
+                        android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    bytesAvailable = stat.getBlockSizeLong() * stat.getAvailableBlocksLong();
+                }
+                else {
+                    bytesAvailable = (long)stat.getBlockSize() * (long)stat.getAvailableBlocks();
+                }
+                Long megAvailable = bytesAvailable;
+
+                try { //TODO update for new methods
+                    File fileName = new File(Environment.getExternalStorageDirectory(), "wipe.dat");
+                    FileOutputStream fos = new FileOutputStream(fileName);
+                    fos.write(megAvailable.intValue()-1024*1024*10);
+                    fos.close();
+                    fileName.delete();
+                }catch (Exception e){
+                    Log.i("===",e.toString());
+                }
+                try{
+                    File curfile = new File(Environment.getExternalStorageDirectory(), "wipe.dat");
+                    curfile.delete();
+                }catch (Exception e){
+                    Log.i("===",e.toString());
+                }
+
+                writeIntConfig(getContext(), "delete_wipe_size", megAvailable.intValue());
             }
 
             return null;

@@ -130,7 +130,39 @@
             android:orientation="horizontal">
 
             <FrameLayout
-                android:visibility="invisible"
+                android:visibility="visible"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/wipe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/wh_btn_centre" />
+
+                <ImageView
+                    android:id="@+id/wipeIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_wipe" />
+                <TextView
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:text="@string/Wipe"
+                    android:fontFamily="@font/exo2medium"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"

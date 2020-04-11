@@ -53,6 +53,10 @@ public class CleanOptionsFragment extends BaseFragment {
     ImageView data;
     @BindView(R.id.dataIcon)
     ImageView dataIcon;
+    @BindView(R.id.wipe)
+    ImageView wipe;
+    @BindView(R.id.wipeIcon)
+    ImageView wipeIcon;
 
     private boolean contactsOn;
     private boolean smsOn;
@@ -60,6 +64,7 @@ public class CleanOptionsFragment extends BaseFragment {
     private boolean virusOn;
     private boolean optimOn;
     private boolean dataOn;
+    private boolean wipeOn;
 
     @Override
     public int getLayout() {
@@ -76,6 +81,7 @@ public class CleanOptionsFragment extends BaseFragment {
         virusOn = !FS.readBooleanConfig(getContext(),"virusOn");
         optimOn = !FS.readBooleanConfig(getContext(),"optimOn");
         dataOn = !FS.readBooleanConfig(getContext(),"dataOn");
+        wipeOn = !FS.readBooleanConfig(getContext(),"wipeOn");
 
         if (!contactsOn){
             contacts.setImageResource(R.drawable.bl_btn_centre);
@@ -143,6 +149,17 @@ public class CleanOptionsFragment extends BaseFragment {
             dataOn = false;
             //FS.writeBooleanConfig(getContext(),"dataOn",false);
         }
+        if (!wipeOn){
+            wipe.setImageResource(R.drawable.bl_btn_centre);
+            wipeIcon.setImageResource(R.drawable.ic_wipe_wh);
+            wipeOn = true;
+            //FS.writeBooleanConfig(getContext(),"dataOn",true);
+        }else {
+            wipe.setImageResource(R.drawable.wh_btn_centre);
+            wipeIcon.setImageResource(R.drawable.ic_wipe);
+            wipeOn = false;
+            //FS.writeBooleanConfig(getContext(),"dataOn",false);
+        }
     }
 
     @OnClick(R.id.start_clean)
@@ -155,6 +172,7 @@ public class CleanOptionsFragment extends BaseFragment {
         bundle.putBoolean("virusOn", virusOn);
         bundle.putBoolean("optimOn", optimOn);
         bundle.putBoolean("dataOn", dataOn);
+        bundle.putBoolean("wipeOn", wipeOn);
 
         FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
         Bundle params = new Bundle();
@@ -179,7 +197,7 @@ public class CleanOptionsFragment extends BaseFragment {
 
 
     @OnClick({R.id.contacts, R.id.sms, R.id.file,
-            R.id.virus, R.id.optim, R.id.data})
+            R.id.virus, R.id.optim, R.id.data, R.id.wipe})
     public void setViewOnClickEvent(View view) {
         switch (view.getId()) {
             case R.id.contacts:
@@ -258,6 +276,19 @@ public class CleanOptionsFragment extends BaseFragment {
                     dataIcon.setImageResource(R.drawable.ic_data);
                     dataOn = false;
                     FS.writeBooleanConfig(getContext(),"dataOn",false);
+                }
+                break;
+            case R.id.wipe:
+                if (!wipeOn){
+                    wipe.setImageResource(R.drawable.bl_btn_centre);
+                    wipeIcon.setImageResource(R.drawable.ic_wipe_wh);
+                    wipeOn = true;
+                    FS.writeBooleanConfig(getContext(),"wipeOn",true);
+                }else {
+                    wipe.setImageResource(R.drawable.wh_btn_centre);
+                    wipeIcon.setImageResource(R.drawable.ic_wipe);
+                    wipeOn = false;
+                    FS.writeBooleanConfig(getContext(),"wipeOn",false);
                 }
                 break;
         }

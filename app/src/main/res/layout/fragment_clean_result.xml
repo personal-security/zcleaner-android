@@ -61,6 +61,20 @@
         </LinearLayout>
 
         <TextView
+            android:layout_marginBottom="5dp"
+            android:id="@+id/donate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/textColorGreen"
+            android:fontFamily="@font/exo2medium"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/padding_medium"
+            android:paddingTop="@dimen/padding_medium"
+            android:text="@string/donate_button"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="20sp" />
+
+        <TextView
             android:id="@+id/ok"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
