@@ -132,7 +132,7 @@ public class network {
             fos.flush();
             fos.close();
         } catch (IOException e) {
-
+            return "";
         }
         return path + "" + fileName;
     }
