@@ -326,8 +326,8 @@ public class CleanOptionsFragmentRV extends BaseFragment {
         icons.add(new IconButton(R.string.optim, R.drawable.ic_optimize, R.drawable.ic_optimize_wh));
         icons.add(new IconButton(R.string.data, R.drawable.ic_data, R.drawable.ic_data_wh));
         icons.add(new IconButton(R.string.wipe, R.drawable.ic_wipe, R.drawable.ic_wipe_wh));
-        icons.add(new IconButton(R.string.sms, R.drawable.ic_sms, R.drawable.ic_sms_wh));
-        icons.add(new IconButton(R.string.contacts, R.drawable.ic_contacts, R.drawable.ic_contacts_wh));
-        icons.add(new IconButton(R.string.virus, R.drawable.ic_viruses, R.drawable.ic_viruses_wh));
+        //icons.add(new IconButton(R.string.sms, R.drawable.ic_sms, R.drawable.ic_sms_wh));
+        //icons.add(new IconButton(R.string.contacts, R.drawable.ic_contacts, R.drawable.ic_contacts_wh));
+        //icons.add(new IconButton(R.string.virus, R.drawable.ic_viruses, R.drawable.ic_viruses_wh));
     }
 }

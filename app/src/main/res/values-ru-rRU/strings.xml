@@ -26,5 +26,5 @@
     <string name="notification_need_check_remove">Приложение удалено, необходимо очистить систему.</string>
     <string name="payment_success">Оплата произведена, спасибо за покупку!</string>
     <string name="donate_button">Пожертвовать на развитие!</string>
-    <string name="Wipe">Уничтожить удаленные</string>
+    <string name="wipe">Уничтожить удаленные</string>
 </resources>
