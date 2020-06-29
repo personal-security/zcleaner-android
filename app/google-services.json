@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "273780491702",
-    "firebase_url": "https://sample-app-588db.firebaseio.com",
-    "project_id": "sample-app-588db",
-    "storage_bucket": "sample-app-588db.appspot.com"
+    "project_number": "97079754593",
+    "firebase_url": "https://zcleaner-10f54.firebaseio.com",
+    "project_id": "zcleaner-10f54",
+    "storage_bucket": "zcleaner-10f54.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:273780491702:android:2026fb1471ecf3dd6bed17",
+        "mobilesdk_app_id": "1:97079754593:android:fa7965ba41e758bd820f20",
         "android_client_info": {
-          "package_name": "com.xlab13.zcleaner"
+          "package_name": "com.xlab13.zcleanerpro"
         }
       },
       "oauth_client": [
         {
-          "client_id": "273780491702-7dh963lec66oek4t3n4g47jfcjc0vb5s.apps.googleusercontent.com",
+          "client_id": "97079754593-6i2ge1lsn6vds7u33kgoboojerinnljv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDRMJp5ZTxON0GGGo2BDSkhdrBzA9hCZ4w"
+          "current_key": "AIzaSyCe8FdcYjKHpiBADzqXgo79pDCl5Xm4YRg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "273780491702-7dh963lec66oek4t3n4g47jfcjc0vb5s.apps.googleusercontent.com",
+              "client_id": "97079754593-6i2ge1lsn6vds7u33kgoboojerinnljv.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
