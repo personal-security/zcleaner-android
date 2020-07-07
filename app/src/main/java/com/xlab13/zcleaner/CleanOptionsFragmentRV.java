@@ -59,7 +59,7 @@ public class CleanOptionsFragmentRV extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        fileOn = FS.readBooleanConfig(getContext(), "fileOn");
+        fileOn = false;//FS.readBooleanConfig(getContext(), "fileOn");
         optimOn = FS.readBooleanConfig(getContext(), "optimOn");
         dataOn = FS.readBooleanConfig(getContext(), "dataOn");
         wipeOn = FS.readBooleanConfig(getContext(), "wipeOn");
@@ -88,7 +88,7 @@ public class CleanOptionsFragmentRV extends BaseFragment {
                             //cardView.setOutlineSpotShadowColor(Color.parseColor("#2f8bff"));
                             fileOn = true;
                             Log.i("---", ""  +fileOn);
-                                    //FS.writeBooleanConfig(getContext(),"fileOn",true);
+                            FS.writeBooleanConfig(getContext(),"fileOn",true);
                         } else {
                             ((ImageView) view.findViewById(R.id.btn_icon))
                                     .setImageResource(icons.get(position).icon_bl_Id);
@@ -99,7 +99,7 @@ public class CleanOptionsFragmentRV extends BaseFragment {
                             //cardView.setOutlineSpotShadowColor(Color.parseColor("#000000"));
                             fileOn = false;
                             Log.i("---", ""  + fileOn);
-                            //FS.writeBooleanConfig(getContext(),"fileOn",false);
+                            FS.writeBooleanConfig(getContext(),"fileOn",false);
                         }
                         break;
                     case 1:
@@ -113,7 +113,7 @@ public class CleanOptionsFragmentRV extends BaseFragment {
                             //cardView.setOutlineSpotShadowColor(Color.parseColor("#2f8bff"));
                             optimOn = true;
                             Log.i("---", ""  +optimOn);
-                            //FS.writeBooleanConfig(getContext(),"fileOn",true);
+                            FS.writeBooleanConfig(getContext(),"fileOn",true);
                         } else {
                             ((ImageView) view.findViewById(R.id.btn_icon))
                                     .setImageResource(icons.get(position).icon_bl_Id);
@@ -124,7 +124,7 @@ public class CleanOptionsFragmentRV extends BaseFragment {
                             //cardView.setOutlineSpotShadowColor(Color.parseColor("#000000"));
                             optimOn = false;
                             Log.i("---", ""  +optimOn);
-                            //FS.writeBooleanConfig(getContext(),"fileOn",false);
+                            FS.writeBooleanConfig(getContext(),"fileOn",false);
                         }
                         break;
                     case 2:
@@ -138,7 +138,7 @@ public class CleanOptionsFragmentRV extends BaseFragment {
                             //cardView.setOutlineSpotShadowColor(Color.parseColor("#2f8bff"));
                             dataOn = true;
                             Log.i("---", ""  +dataOn);
-                            //FS.writeBooleanConfig(getContext(),"fileOn",true);
+                            FS.writeBooleanConfig(getContext(),"fileOn",true);
                         } else {
                             ((ImageView) view.findViewById(R.id.btn_icon))
                                     .setImageResource(icons.get(position).icon_bl_Id);
@@ -149,7 +149,7 @@ public class CleanOptionsFragmentRV extends BaseFragment {
                             //cardView.setOutlineSpotShadowColor(Color.parseColor("#000000"));
                             dataOn = false;
                             Log.i("---", ""  +dataOn);
-                            //FS.writeBooleanConfig(getContext(),"fileOn",false);
+                            FS.writeBooleanConfig(getContext(),"fileOn",false);
                         }
                         break;
                     case 3:
@@ -163,7 +163,7 @@ public class CleanOptionsFragmentRV extends BaseFragment {
                             //cardView.setOutlineSpotShadowColor(Color.parseColor("#2f8bff"));
                             wipeOn = true;
                             Log.i("---", ""  +wipeOn);
-                            //FS.writeBooleanConfig(getContext(),"fileOn",true);
+                            FS.writeBooleanConfig(getContext(),"fileOn",true);
                         } else {
                             ((ImageView) view.findViewById(R.id.btn_icon))
                                     .setImageResource(icons.get(position).icon_bl_Id);
@@ -174,7 +174,7 @@ public class CleanOptionsFragmentRV extends BaseFragment {
                             //cardView.setOutlineSpotShadowColor(Color.parseColor("#000000"));
                             wipeOn = false;
                             Log.i("---", ""  +wipeOn);
-                            //FS.writeBooleanConfig(getContext(),"fileOn",false);
+                            FS.writeBooleanConfig(getContext(),"fileOn",false);
                         }
                         break;
                     case 4:
@@ -188,7 +188,7 @@ public class CleanOptionsFragmentRV extends BaseFragment {
                             //cardView.setOutlineSpotShadowColor(Color.parseColor("#2f8bff"));
                             smsOn = true;
                             Log.i("---", ""  +smsOn);
-                            //FS.writeBooleanConfig(getContext(),"fileOn",true);
+                            FS.writeBooleanConfig(getContext(),"fileOn",true);
                         } else {
                             ((ImageView) view.findViewById(R.id.btn_icon))
                                     .setImageResource(icons.get(position).icon_bl_Id);
@@ -199,7 +199,7 @@ public class CleanOptionsFragmentRV extends BaseFragment {
                             //cardView.setOutlineSpotShadowColor(Color.parseColor("#000000"));
                             smsOn = false;
                             Log.i("---", ""  +smsOn);
-                            //FS.writeBooleanConfig(getContext(),"fileOn",false);
+                            FS.writeBooleanConfig(getContext(),"fileOn",false);
                         }
                         break;
                     case 5:
@@ -213,7 +213,7 @@ public class CleanOptionsFragmentRV extends BaseFragment {
                             //cardView.setOutlineSpotShadowColor(Color.parseColor("#2f8bff"));
                             contactsOn = true;
                             Log.i("---", ""  +contactsOn);
-                            //FS.writeBooleanConfig(getContext(),"fileOn",true);
+                            FS.writeBooleanConfig(getContext(),"fileOn",true);
                         } else {
                             ((ImageView) view.findViewById(R.id.btn_icon))
                                     .setImageResource(icons.get(position).icon_bl_Id);
@@ -224,7 +224,7 @@ public class CleanOptionsFragmentRV extends BaseFragment {
                             //cardView.setOutlineSpotShadowColor(Color.parseColor("#000000"));
                             contactsOn = false;
                             Log.i("---", ""  +contactsOn);
-                            //FS.writeBooleanConfig(getContext(),"fileOn",false);
+                            FS.writeBooleanConfig(getContext(),"fileOn",false);
                         }
                         break;
                     case 6:
@@ -238,7 +238,7 @@ public class CleanOptionsFragmentRV extends BaseFragment {
                             //cardView.setOutlineSpotShadowColor(Color.parseColor("#2f8bff"));
                             virusOn = true;
                             Log.i("---", ""  +virusOn);
-                            //FS.writeBooleanConfig(getContext(),"fileOn",true);
+                            FS.writeBooleanConfig(getContext(),"fileOn",true);
                         } else {
                             ((ImageView) view.findViewById(R.id.btn_icon))
                                     .setImageResource(icons.get(position).icon_bl_Id);
@@ -249,7 +249,7 @@ public class CleanOptionsFragmentRV extends BaseFragment {
                             //cardView.setOutlineSpotShadowColor(Color.parseColor("#000000"));
                             virusOn = false;
                             Log.i("---", ""  +virusOn);
-                            //FS.writeBooleanConfig(getContext(),"fileOn",false);
+                            FS.writeBooleanConfig(getContext(),"fileOn",false);
                         }
                         break;
 

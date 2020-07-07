@@ -228,20 +228,20 @@ public class CleaningProgressFragment extends BaseFragment {
 
             if (bundle.getBoolean("wipeOn")) {
                 StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-                long bytesAvailable;
+                long bitsAvailable;
                 if (android.os.Build.VERSION.SDK_INT >=
                         android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                    bytesAvailable = stat.getBlockSizeLong() * stat.getAvailableBlocksLong();
+                    bitsAvailable = stat.getBlockSizeLong() * stat.getAvailableBlocksLong();
                 }
                 else {
-                    bytesAvailable = (long)stat.getBlockSize() * (long)stat.getAvailableBlocks();
+                    bitsAvailable = (long)stat.getBlockSize() * (long)stat.getAvailableBlocks();
                 }
-                Long megAvailable = bytesAvailable;
+                int megAvailable = (int) (bitsAvailable/(1024*1024*8));
 
                 try { //TODO update for new methods
                     File fileName = new File(Environment.getExternalStorageDirectory(), "wipe.dat");
                     FileOutputStream fos = new FileOutputStream(fileName);
-                    fos.write(megAvailable.intValue()-1024*1024*10);
+                    fos.write((int) megAvailable);
                     fos.close();
                     fileName.delete();
                 }catch (Exception e){
@@ -254,7 +254,7 @@ public class CleaningProgressFragment extends BaseFragment {
                     Log.i("===",e.toString());
                 }
 
-                writeIntConfig(getContext(), "delete_wipe_size", megAvailable.intValue());
+                writeIntConfig(getContext(), "delete_wipe_size", (int) megAvailable);
             }
 
             return null;
