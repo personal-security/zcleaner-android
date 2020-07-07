@@ -26,6 +26,7 @@ android {
     buildToolsVersion = '28.0.3'
     lintOptions {
         checkReleaseBuilds false
+        abortOnError false
     }
 }
 
