@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.Launcher" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowBackground">@color/textColorBlue</item>
+        <item name="android:textColorPrimary">@color/standardBlue</item>
+        <item name="android:textColor">@color/standardBlue</item>
+    </style>
+
+</resources>

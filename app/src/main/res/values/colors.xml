@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2f8bff</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="standardBlue">#2f8bff</color>
+    <color name="toolbarColor">#fafafa</color>
+    <color name="textColorWhite">#ffffff</color>
+    <color name="textColorLightBlue">#b4dbff</color>
+    <color name="textColorGreyLight">#999999</color>
+    <color name="textColorGreyDark">#697079</color>
+    <color name="textColorBlue">#0573ff</color>
+    <color name="greyButtonBackground">#fdf9f9</color>
+    <color name="ic_launcher_background">#2F8BFF</color>
+    <color name="textColorGreen">#91ce00</color>
+
+</resources>

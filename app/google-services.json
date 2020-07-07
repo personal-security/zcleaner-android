@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "97079754593",
+    "firebase_url": "https://zcleaner-10f54.firebaseio.com",
+    "project_id": "zcleaner-10f54",
+    "storage_bucket": "zcleaner-10f54.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:97079754593:android:fa7965ba41e758bd820f20",
+        "android_client_info": {
+          "package_name": "com.xlab13.zcleanerpro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "97079754593-6i2ge1lsn6vds7u33kgoboojerinnljv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe8FdcYjKHpiBADzqXgo79pDCl5Xm4YRg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "97079754593-6i2ge1lsn6vds7u33kgoboojerinnljv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
