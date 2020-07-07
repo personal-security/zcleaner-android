@@ -2,7 +2,7 @@
 ![ZCleaner Logo](/docs/banner_180х120.png)
 
 ## Google Play
-Link to Google Play [ZCleaner](https://play.google.com/store/apps/details?id=com.xlab13.zcleaner)!
+Link to Google Play [ZCleaner Free](https://play.google.com/store/apps/details?id=com.xlab13.zcleaner)!
 
 ## About project
 
