@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="admob_app_id" translatable="false">ca-app-pub-8059131308960326~7437261189</string>
-    <string name="admob_banner_id" translatable="false">ca-app-pub-8059131308960326/6124179519</string>
-    <string name="admob_page_id" translatable="false">ca-app-pub-8059131308960326/2184934501</string>
+    <string name="admob_app_id" translatable="false">ca-app-pub-8059131308960326~2448689540</string>
+    <string name="admob_banner_id" translatable="false">ca-app-pub-8059131308960326/1437918253</string>
+    <string name="admob_page_id" translatable="false">ca-app-pub-8059131308960326/1167397468</string>
 </resources>
