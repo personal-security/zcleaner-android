@@ -20,7 +20,11 @@ public class FragmentUtil {
             if (addToBackStack) {
                 fTrans.addToBackStack(null);
             } else {
-                manager.popBackStackImmediate();
+                try {
+                    manager.popBackStackImmediate();
+                } catch (IllegalStateException ignored){
+
+                }
             }
             fTrans.replace(R.id.container, fragment, fragment.getClass().getSimpleName());
             fTrans.commitAllowingStateLoss();

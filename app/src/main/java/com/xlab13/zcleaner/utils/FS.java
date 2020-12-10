@@ -123,13 +123,15 @@ public class FS {
     }
 
     public static void writeIntConfig(final Context cnt,final String key, final Integer value){
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(cnt);
+        if (cnt.getPackageName() != null){
+            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(cnt);
 
-        //SharedPreferences settings = cnt.getSharedPreferences(config_file, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putInt(key, value);
-        editor.apply();
-        editor.commit();
+            //SharedPreferences settings = cnt.getSharedPreferences(config_file, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putInt(key, value);
+            editor.apply();
+            editor.commit();
+        }
     }
 
     public static Long readLongConfig(final Context cnt, final String key){

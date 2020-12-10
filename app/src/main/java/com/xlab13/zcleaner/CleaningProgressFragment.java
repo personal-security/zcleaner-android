@@ -119,7 +119,9 @@ public class CleaningProgressFragment extends BaseFragment {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            prView.setText(getText(R.string.scanings)+" " + (5 - (millisUntilFinished / 1000))*20   +" %");
+            if (prView != null){
+                prView.setText(getText(R.string.scanings)+" " + (5 - (millisUntilFinished / 1000))*20   +" %");
+            }
         }
 
         @Override
