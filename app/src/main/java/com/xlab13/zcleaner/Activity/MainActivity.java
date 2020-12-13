@@ -2,7 +2,11 @@ package com.xlab13.zcleaner.Activity;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -15,6 +19,8 @@ import android.provider.Telephony;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -74,6 +80,8 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
         FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(getApplicationContext());
         Bundle params = new Bundle();
         mFirebaseAnalytics.logEvent("open_app", params);
+
+        countLaunch();
     }
 
     @Override
@@ -112,6 +120,7 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add("Rate App");
+        menu.add("More Apps");
         //menu.add("Настройки");
         //menu.add("Обновить базу");
         Log.i("~~~", "OptionsMenu created!");
@@ -136,6 +145,9 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
                 break;
             case "Обновить базу":
 
+                break;
+            case "More Apps":
+                startActivity(new Intent(this, MoreAppsActivity.class));
                 break;
         }
         return true;
@@ -216,5 +228,33 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
             }
         }
 
+    }
+
+    private void countLaunch(){
+        SharedPreferences sPref = getSharedPreferences("app", Context.MODE_PRIVATE);
+        int launches = sPref.getInt("countLaunch", 0);
+        launches++;
+        if (launches >= 10){
+            launches = 0;
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(this)
+                    .setMessage(R.string.more_apps)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(getApplicationContext(), MoreAppsActivity.class));
+                        }
+                    })
+                    .setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            Dialog dialog = mBuilder.create();
+            dialog.show();
+        }
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putInt("countLaunch", launches);
+        ed.commit();
     }
 }

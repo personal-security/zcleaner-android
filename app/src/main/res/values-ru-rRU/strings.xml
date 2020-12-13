@@ -9,7 +9,7 @@
     <string name="ok">Ок</string>
     <string name="total_cleaned">Всего обработано данных</string>
     <string name="mb">MB</string>
-    <string name="Contacts">Контакты</string>
+    <string name="contacts">Контакты</string>
     <string name="sms">СМС</string>
     <string name="file">Файлы</string>
     <string name="virus">Вирусы</string>
@@ -27,4 +27,7 @@
     <string name="payment_success">Оплата произведена, спасибо за покупку!</string>
     <string name="donate_button">Пожертвовать на развитие!</string>
     <string name="wipe">Уничтожить удаленные</string>
+
+    <string name="close">Закрыть</string>
+    <string name="more_apps">Посмотрите другие наши приложения</string>
 </resources>

@@ -30,4 +30,7 @@
     <string name="notification_need_check_remove">The application has been removed, you need to clean the system.</string>
     <string name="payment_success">Paymemt is done, thanks for you!</string>
     <string name="donate_button">Donate project!</string>
+
+    <string name="close">Close</string>
+    <string name="more_apps">Check out our other apps</string>
 </resources>

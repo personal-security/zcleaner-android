@@ -10,7 +10,7 @@
     <string name="total_cleaned">Total de dados geridos</string>
     <string name="mb">MB</string>
 
-    <string name="Contacts">Contactos</string>
+    <string name="contacts">Contactos</string>
     <string name="sms">SMS</string>
     <string name="file">Sistema de Ficheiros</string>
     <string name="virus">Vírus</string>
@@ -24,4 +24,7 @@
     <string name="memory_cleared">Memória excluída</string>
     <string name="personal_data">Dados pessoais</string>
     <string name="scanings">Digitalização</string>
+
+    <string name="close">Fechar</string>
+    <string name="more_apps">Confira nossos outros aplicativos</string>
 </resources>

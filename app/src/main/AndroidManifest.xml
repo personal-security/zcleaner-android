@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xlab13.zcleaner">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -68,6 +69,7 @@
                     android:scheme="app" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.MoreAppsActivity"/>
 
         <receiver android:name=".Broadcasts.MyReceiver">
             <intent-filter android:priority="1000">

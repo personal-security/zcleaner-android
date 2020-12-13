@@ -10,7 +10,7 @@
     <string name="total_cleaned">Gesamte verwaltete Dateien</string>
     <string name="mb">MB</string>
 
-    <string name="Contacts">Kontakte</string>
+    <string name="contacts">Kontakte</string>
     <string name="sms">SMS</string>
     <string name="file">Dateisystem</string>
     <string name="virus">Viren</string>
@@ -24,4 +24,7 @@
     <string name="memory_cleared">Speicher gelöscht</string>
     <string name="personal_data">Persönliche Daten</string>
     <string name="scanings">Scannen</string>
+
+    <string name="close">Schließen</string>
+    <string name="more_apps">Schauen Sie sich unsere anderen Apps an</string>
 </resources>

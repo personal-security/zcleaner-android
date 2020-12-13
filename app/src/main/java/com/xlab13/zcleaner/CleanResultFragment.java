@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
@@ -226,20 +227,21 @@ public class CleanResultFragment extends BaseFragment {
 
     private void initBilling() {
         Log.i("===","try init payment service");
-        mBillingClient = BillingClient.newBuilder(getActivity()).setListener(new PurchasesUpdatedListener() {
+        mBillingClient = BillingClient.newBuilder(getActivity()).enablePendingPurchases().setListener(new PurchasesUpdatedListener() {
             @Override
-            public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
-                if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
+            public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> list) {
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && list != null) {
                     //here when purchase completed
                     payComplete();
                 }
             }
         }).build();
         mBillingClient.startConnection(new BillingClientStateListener() {
+
             @Override
-            public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
-                Log.i("===","payment service fail , code : "+ billingResponseCode);
-                if (billingResponseCode == BillingClient.BillingResponse.OK) {
+            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+                Log.i("===","payment service fail , code : "+ billingResult.getResponseCode());
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                     //below you can query information about products and purchase
                     Log.i("===","payment service ok");
                     querySkuDetails(); //query for products
@@ -270,9 +272,9 @@ public class CleanResultFragment extends BaseFragment {
         skuDetailsParamsBuilder.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
         mBillingClient.querySkuDetailsAsync(skuDetailsParamsBuilder.build(), new SkuDetailsResponseListener() {
             @Override
-            public void onSkuDetailsResponse(int responseCode, List<SkuDetails> skuDetailsList) {
-                if (responseCode == 0) {
-                    for (SkuDetails skuDetails : skuDetailsList) {
+            public void onSkuDetailsResponse(@NonNull BillingResult billingResult, @Nullable List<SkuDetails> list) {
+                if (billingResult.getResponseCode() == 0) {
+                    for (SkuDetails skuDetails : list) {
                         mSkuDetailsMap.put(skuDetails.getSku(), skuDetails);
                         Log.i("===",skuDetails.getDescription());
                     }
