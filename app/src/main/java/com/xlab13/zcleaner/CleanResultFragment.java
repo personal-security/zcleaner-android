@@ -239,7 +239,7 @@ public class CleanResultFragment extends BaseFragment {
         mBillingClient.startConnection(new BillingClientStateListener() {
 
             @Override
-            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+            public void onBillingSetupFinished(@NonNull BillingResult billingResult) { //TODO fail as non have google account
                 Log.i("===","payment service fail , code : "+ billingResult.getResponseCode());
                 if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                     //below you can query information about products and purchase

@@ -6,8 +6,8 @@ android {
         applicationId "com.xlab13.zcleanerpro"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 43
-        versionName "0.4.3"
+        versionCode 44
+        versionName "0.4.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -23,7 +23,7 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
-    buildToolsVersion = '29.0.2'
+    buildToolsVersion = '29.0.3'
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
@@ -46,12 +46,12 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
     //GOOGLE libs
-    implementation 'com.google.android.gms:play-services-ads:19.5.0'
+    implementation 'com.google.android.gms:play-services-ads:19.6.0'
 
     //Firebase libs
     implementation 'com.google.firebase:firebase-core:18.0.0'
     implementation 'com.google.firebase:firebase-crashlytics:17.3.0'
-    implementation 'com.google.firebase:firebase-config:20.0.1'
+    implementation 'com.google.firebase:firebase-config:20.0.2'
     implementation 'com.google.firebase:firebase-analytics:18.0.0'
     implementation 'com.google.firebase:firebase-messaging:21.0.0'
     implementation 'com.google.firebase:firebase-firestore:22.0.0'
