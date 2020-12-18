@@ -73,17 +73,21 @@ public class SplashActivity extends AppCompatActivity {
             public void onResponse(Call<AppsResponse> call, Response<AppsResponse> response) {
                 apps = new ArrayList<>();
 
-                for (AppItem item : response.body().items) {
-                    PackageManager pm = getPackageManager();
-                    PackageInfo pi = null;
-                    try {
-                        pi = pm.getPackageInfo(item.PackageName, 0);
-                    } catch (PackageManager.NameNotFoundException e) {
-                        e.printStackTrace();
+                try{
+                    for (AppItem item : response.body().items) {
+                        PackageManager pm = getPackageManager();
+                        PackageInfo pi = null;
+                        try {
+                            pi = pm.getPackageInfo(item.PackageName, 0);
+                        } catch (PackageManager.NameNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        if (pi == null) {
+                            apps.add(item);
+                        }
                     }
-                    if (pi == null) {
-                        apps.add(item);
-                    }
+                } catch (Exception e){
+                    return;
                 }
                 for (AppItem item : apps) {
                     Thread t = new Thread(new Runnable() {
@@ -98,7 +102,7 @@ public class SplashActivity extends AppCompatActivity {
 
                                 item.Image = Picasso.with(getApplicationContext()).load(iconUrl).get();
                             } catch (IOException e) {
-                                e.printStackTrace();
+                                return;
                             }
                         }
                     });
@@ -108,7 +112,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AppsResponse> call, Throwable t) {
-
+                apps = new ArrayList<>();
             }
         });
     }
