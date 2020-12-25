@@ -38,7 +38,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SplashActivity extends AppCompatActivity {
 
     private AppsApi api;
-    public static List<AppItem> apps = new ArrayList<>();;
+    public static List<AppItem> apps;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,6 +66,7 @@ public class SplashActivity extends AppCompatActivity {
         Calendar updateTime = Calendar.getInstance();
         alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP, updateTime.getTimeInMillis(), 300000, recurringAlarm);
 
+
         prepareApi();
         try {
             api.apps().enqueue(new Callback<AppsResponse>() {
@@ -73,23 +74,19 @@ public class SplashActivity extends AppCompatActivity {
                 public void onResponse(Call<AppsResponse> call, Response<AppsResponse> response) {
                     apps = new ArrayList<>();
 
-                    try {
-                        for (AppItem item : response.body().items) {
-                            PackageManager pm = getPackageManager();
-                            PackageInfo pi = null;
-                            try {
-                                pi = pm.getPackageInfo(item.PackageName, 0);
-                            } catch (PackageManager.NameNotFoundException e) {
-                                e.printStackTrace();
-                            }
-                            if (pi == null) {
-                                apps.add(item);
-                            }
+                    for (AppItem item : response.body().items) {
+                        PackageManager pm = getPackageManager();
+                        PackageInfo pi = null;
+                        try {
+                            pi = pm.getPackageInfo(item.PackageName, 0);
+                        } catch (PackageManager.NameNotFoundException e) {
+                            e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        return;
+                        if (pi == null) {
+                            apps.add(item);
+                        }
                     }
+                    
                     for (AppItem item : apps) {
                         Thread t = new Thread(new Runnable() {
                             @Override
@@ -124,14 +121,10 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void prepareApi(){
-         try {
-             Retrofit retrofit = new Retrofit.Builder()
-                     .baseUrl("http://45.61.138.223:8000/v1/api/")
-                     .addConverterFactory(GsonConverterFactory.create())
-                     .build();
-             api = retrofit.create(AppsApi.class);
-         }catch(Exception e){
-             e.printStackTrace();
-         }
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://45.61.138.223:8000/v1/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(AppsApi.class);
     }
 }

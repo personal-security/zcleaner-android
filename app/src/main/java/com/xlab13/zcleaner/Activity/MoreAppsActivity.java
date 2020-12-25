@@ -29,8 +29,10 @@ public class MoreAppsActivity extends AppCompatActivity {
         rvApps = findViewById(R.id.rvApps);
 
 
-        rvApps.setLayoutManager(new LinearLayoutManager(context));
-        rvApps.setAdapter(new AppsAdapter(context, apps));
+        if (!apps.isEmpty()){
+            rvApps.setLayoutManager(new LinearLayoutManager(context));
+            rvApps.setAdapter(new AppsAdapter(context, apps));
+        }
     }
 
 

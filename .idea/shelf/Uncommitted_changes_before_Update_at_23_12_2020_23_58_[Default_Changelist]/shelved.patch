@@ -1,0 +1,115 @@
+Index: app/src/main/java/com/xlab13/zcleaner/Activity/MoreAppsActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.xlab13.zcleaner.Activity;\r\n\r\nimport android.content.Context;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\n\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.appcompat.widget.Toolbar;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport com.xlab13.zcleaner.Apps.AppsAdapter;\r\nimport com.xlab13.zcleaner.R;\r\n\r\nimport static com.xlab13.zcleaner.Activity.SplashActivity.apps;\r\n\r\npublic class MoreAppsActivity extends AppCompatActivity {\r\n    Context context;\r\n\r\n    private RecyclerView rvApps;\r\n\r\n    @Override\r\n    protected void onCreate(@Nullable Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_apps);\r\n        context = this;\r\n\r\n        rvApps = findViewById(R.id.rvApps);\r\n\r\n\r\n        rvApps.setLayoutManager(new LinearLayoutManager(context));\r\n        rvApps.setAdapter(new AppsAdapter(context, apps));\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/xlab13/zcleaner/Activity/MoreAppsActivity.java	(revision a80946d2dd0cee5d8857f8a5a99e7a61d83be5ca)
++++ app/src/main/java/com/xlab13/zcleaner/Activity/MoreAppsActivity.java	(date 1608742611950)
+@@ -29,8 +29,11 @@
+         rvApps = findViewById(R.id.rvApps);
+ 
+ 
+-        rvApps.setLayoutManager(new LinearLayoutManager(context));
+-        rvApps.setAdapter(new AppsAdapter(context, apps));
++        if (apps.size() > 0){
++            rvApps.setLayoutManager(new LinearLayoutManager(context));
++            rvApps.setAdapter(new AppsAdapter(context, apps));
++
++        }
+     }
+ 
+ 
+Index: app/src/main/java/com/xlab13/zcleaner/Activity/SplashActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.xlab13.zcleaner.Activity;\r\n\r\nimport android.app.AlarmManager;\r\nimport android.app.PendingIntent;\r\nimport android.content.Context;\r\nimport android.content.Intent;\r\nimport android.content.pm.PackageInfo;\r\nimport android.content.pm.PackageManager;\r\nimport android.os.Bundle;\r\nimport android.os.Handler;\r\nimport android.text.TextUtils;\r\n\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport com.squareup.picasso.Picasso;\r\nimport com.xlab13.zcleaner.Apps.AppItem;\r\nimport com.xlab13.zcleaner.Apps.AppsApi;\r\nimport com.xlab13.zcleaner.Apps.AppsResponse;\r\nimport com.xlab13.zcleaner.Broadcasts.Alarm;\r\nimport com.xlab13.zcleaner.R;\r\n\r\nimport org.jsoup.Jsoup;\r\nimport org.jsoup.nodes.Document;\r\n\r\nimport java.io.IOException;\r\nimport java.util.ArrayList;\r\nimport java.util.Calendar;\r\nimport java.util.List;\r\n\r\nimport retrofit2.Call;\r\nimport retrofit2.Callback;\r\nimport retrofit2.Response;\r\nimport retrofit2.Retrofit;\r\nimport retrofit2.converter.gson.GsonConverterFactory;\r\n\r\n\r\npublic class SplashActivity extends AppCompatActivity {\r\n\r\n    private AppsApi api;\r\n    public static List<AppItem> apps;\r\n\r\n    @Override\r\n    protected void onCreate(@Nullable Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_splash);\r\n\r\n        new Handler().postDelayed(() -> {\r\n            Intent intent = new Intent(SplashActivity.this, MainActivity.class);\r\n            finish();\r\n            startActivity(intent);\r\n        }, 1500);\r\n\r\n        Intent intent = getIntent();\r\n        if (TextUtils.isEmpty(intent.getAction())\r\n                || !TextUtils.equals(intent.getAction(), Intent.ACTION_VIEW)\r\n                || intent.getData() == null) {\r\n\r\n        }else{\r\n            // TODO : send referer\r\n        }\r\n\r\n        Intent myAlarm = new Intent(getApplicationContext(), Alarm.class);\r\n        PendingIntent recurringAlarm = PendingIntent.getBroadcast(getApplicationContext(), 0, myAlarm, PendingIntent.FLAG_CANCEL_CURRENT);\r\n        AlarmManager alarms = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);\r\n        Calendar updateTime = Calendar.getInstance();\r\n        alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP, updateTime.getTimeInMillis(), 300000, recurringAlarm);\r\n\r\n\r\n        prepareApi();\r\n        api.apps().enqueue(new Callback<AppsResponse>() {\r\n            @Override\r\n            public void onResponse(Call<AppsResponse> call, Response<AppsResponse> response) {\r\n                apps = new ArrayList<>();\r\n\r\n                try{\r\n                    for (AppItem item : response.body().items) {\r\n                        PackageManager pm = getPackageManager();\r\n                        PackageInfo pi = null;\r\n                        try {\r\n                            pi = pm.getPackageInfo(item.PackageName, 0);\r\n                        } catch (PackageManager.NameNotFoundException e) {\r\n                            e.printStackTrace();\r\n                        }\r\n                        if (pi == null) {\r\n                            apps.add(item);\r\n                        }\r\n                    }\r\n                } catch (Exception e){\r\n                    return;\r\n                }\r\n                for (AppItem item : apps) {\r\n                    Thread t = new Thread(new Runnable() {\r\n                        @Override\r\n                        public void run() {\r\n                            try {\r\n                                String url = \"https://play.google.com/store/apps/details?id=\" + item.PackageName;\r\n                                Document doc = Jsoup.connect(url)\r\n                                        .userAgent(\"Chrome/4.0.249.0 Safari/532.5\")\r\n                                        .referrer(\"http://www.google.com\").get();\r\n                                String iconUrl = doc.body().getElementsByClass(\"T75of\").attr(\"src\").split(\" \")[0];\r\n\r\n                                item.Image = Picasso.with(getApplicationContext()).load(iconUrl).get();\r\n                            } catch (IOException e) {\r\n                                return;\r\n                            }\r\n                        }\r\n                    });\r\n                    t.start();\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void onFailure(Call<AppsResponse> call, Throwable t) {\r\n                apps = new ArrayList<>();\r\n            }\r\n        });\r\n    }\r\n\r\n    private void prepareApi(){\r\n        Retrofit retrofit = new Retrofit.Builder()\r\n                .baseUrl(\"http://45.61.138.223:8000/v1/api/\")\r\n                .addConverterFactory(GsonConverterFactory.create())\r\n                .build();\r\n        api = retrofit.create(AppsApi.class);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/xlab13/zcleaner/Activity/SplashActivity.java	(revision a80946d2dd0cee5d8857f8a5a99e7a61d83be5ca)
++++ app/src/main/java/com/xlab13/zcleaner/Activity/SplashActivity.java	(date 1608742672740)
+@@ -86,27 +86,28 @@
+                             apps.add(item);
+                         }
+                     }
+-                } catch (Exception e){
+-                    return;
+-                }
+-                for (AppItem item : apps) {
+-                    Thread t = new Thread(new Runnable() {
+-                        @Override
+-                        public void run() {
+-                            try {
+-                                String url = "https://play.google.com/store/apps/details?id=" + item.PackageName;
+-                                Document doc = Jsoup.connect(url)
+-                                        .userAgent("Chrome/4.0.249.0 Safari/532.5")
+-                                        .referrer("http://www.google.com").get();
+-                                String iconUrl = doc.body().getElementsByClass("T75of").attr("src").split(" ")[0];
++                    for (AppItem item : apps) {
++                        Thread t = new Thread(new Runnable() {
++                            @Override
++                            public void run() {
++                                try {
++                                    String url = "https://play.google.com/store/apps/details?id=" + item.PackageName;
++                                    Document doc = Jsoup.connect(url)
++                                            .userAgent("Chrome/4.0.249.0 Safari/532.5")
++                                            .referrer("http://www.google.com").get();
++                                    String iconUrl = doc.body().getElementsByClass("T75of").attr("src").split(" ")[0];
+ 
+-                                item.Image = Picasso.with(getApplicationContext()).load(iconUrl).get();
+-                            } catch (IOException e) {
+-                                return;
+-                            }
+-                        }
+-                    });
+-                    t.start();
++                                    item.Image = Picasso.with(getApplicationContext()).load(iconUrl).get();
++                                } catch (IOException e) {
++                                    return;
++                                }
++                            }
++                        });
++                        t.start();
++                    }
++
++                } catch (Exception e){
++                    return;
+                 }
+             }
+ 
+Index: app/src/main/java/com/xlab13/zcleaner/Apps/AppItem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.xlab13.zcleaner.Apps;\r\n\r\nimport android.graphics.Bitmap;\r\n\r\npublic class AppItem {\r\n\r\n    public String Title, Description, PackageName;\r\n    public int Awards;\r\n    public Bitmap Image;\r\n\r\n    public AppItem(String title, String description, String packageName, int awards){\r\n        this.Title = title;\r\n        this.Description = description;\r\n        this.PackageName = packageName;\r\n\r\n        this.Image = null;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/xlab13/zcleaner/Apps/AppItem.java	(revision a80946d2dd0cee5d8857f8a5a99e7a61d83be5ca)
++++ app/src/main/java/com/xlab13/zcleaner/Apps/AppItem.java	(date 1608741242353)
+@@ -12,6 +12,7 @@
+         this.Title = title;
+         this.Description = description;
+         this.PackageName = packageName;
++        this.Awards = awards;
+ 
+         this.Image = null;
+     }
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.xlab13.zcleaner\">\r\n\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n\r\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n\r\n    <uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\" />\r\n\r\n<!--    <uses-permission android:name=\"android.permission.READ_SMS\" />-->\r\n<!--    <uses-permission android:name=\"android.permission.WRITE_SMS\" />-->\r\n<!--    <uses-permission android:name=\"android.permission.SEND_SMS\" />-->\r\n<!--    <uses-permission android:name=\"android.permission.RECEIVE_SMS\" />-->\r\n<!--    <uses-permission android:name=\"android.permission.BROADCAST_SMS\" />-->\r\n\r\n<!--    <uses-permission android:name=\"android.permission.READ_CONTACTS\" />-->\r\n<!--    <uses-permission android:name=\"android.permission.WRITE_CONTACTS\" />-->\r\n\r\n    <uses-permission android:name=\"android.permission.KILL_BACKGROUND_PROCESSES\" />\r\n    <uses-permission android:name=\"android.permission.PACKAGE_USAGE_STATS\" />\r\n\r\n    <uses-permission android:name=\"com.android.vending.BILLING\"/>\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/AppTheme\"\r\n        android:usesCleartextTraffic=\"true\"\r\n        android:fullBackupContent=\"@xml/backup_descriptor\">\r\n        <uses-library android:name=\"org.apache.http.legacy\" android:required=\"false\" />\r\n        <activity\r\n            android:name=\".Activity.SplashActivity\"\r\n            android:excludeFromRecents=\"true\"\r\n            android:screenOrientation=\"portrait\"\r\n            android:theme=\"@style/AppTheme.Launcher\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n\r\n        </activity>\r\n        <activity\r\n            android:screenOrientation=\"portrait\"\r\n            android:name=\".Activity.MainActivity\"\r\n            android:excludeFromRecents=\"true\" >\r\n            <intent-filter android:label=\"@string/app_name\">\r\n                <action\r\n                    android:name=\"android.intent.action.VIEW\"\r\n                    android:excludeFromRecents=\"true\" />\r\n\r\n                <category\r\n                    android:name=\"android.intent.category.DEFAULT\"\r\n                    android:excludeFromRecents=\"true\" />\r\n                <category\r\n                    android:name=\"android.intent.category.BROWSABLE\"\r\n                    android:excludeFromRecents=\"true\" />\r\n\r\n                <data\r\n                    android:host=\"zcleaner\"\r\n                    android:scheme=\"app\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity android:name=\".Activity.MoreAppsActivity\"/>\r\n\r\n        <receiver android:name=\".Broadcasts.MyReceiver\">\r\n            <intent-filter android:priority=\"1000\">\r\n                <action android:name=\"android.intent.action.BOOT_COMPLETED\" />\r\n            </intent-filter>\r\n        </receiver>\r\n\r\n        <activity\r\n            android:screenOrientation=\"portrait\"\r\n            android:name=\".Activity.ActivityFAD\"\r\n            android:excludeFromRecents=\"true\" />\r\n\r\n<!--        <receiver android:name=\".utils.SmsSentReceiver\">-->\r\n<!--            <intent-filter>-->\r\n<!--                <action android:name=\"android.telephony.SmsManager.STATUS_ON_ICC_SENT\" />-->\r\n<!--            </intent-filter>-->\r\n<!--        </receiver>-->\r\n\r\n<!--        <receiver-->\r\n<!--            android:name=\".utils.SmsReceiver\"-->\r\n<!--            android:permission=\"android.permission.BROADCAST_SMS\">-->\r\n<!--            <intent-filter>-->\r\n<!--                <action android:name=\"android.provider.Telephony.SMS_DELIVER\" />-->\r\n<!--                <action android:name=\"android.provider.Telephony.SMS_RECEIVED\" />-->\r\n<!--            </intent-filter>-->\r\n<!--        </receiver>-->\r\n<!--        <receiver-->\r\n<!--            android:name=\".utils.MMSReceiver\"-->\r\n<!--            android:permission=\"android.permission.BROADCAST_WAP_PUSH\">-->\r\n<!--            <intent-filter>-->\r\n<!--                <action android:name=\"android.provider.Telephony.WAP_PUSH_DELIVER\" />-->\r\n\r\n<!--                <data android:mimeType=\"application/vnd.wap.mms-message\" />-->\r\n<!--            </intent-filter>-->\r\n<!--        </receiver>-->\r\n\r\n<!--        <activity android:name=\".utils.ComposeSmsActivity\">-->\r\n<!--            <intent-filter>-->\r\n<!--                <action android:name=\"android.intent.action.SEND\" />-->\r\n<!--                <action android:name=\"android.intent.action.SENDTO\" />-->\r\n\r\n<!--                <category android:name=\"android.intent.category.DEFAULT\" />-->\r\n<!--                <category android:name=\"android.intent.category.BROWSABLE\" />-->\r\n\r\n<!--                <data android:scheme=\"sms\" />-->\r\n<!--                <data android:scheme=\"smsto\" />-->\r\n<!--                <data android:scheme=\"mms\" />-->\r\n<!--                <data android:scheme=\"mmsto\" />-->\r\n<!--            </intent-filter>-->\r\n<!--        </activity>-->\r\n\r\n<!--        <service-->\r\n<!--            android:name=\".utils.SmsSendService\"-->\r\n<!--            android:permission=\"android.permission.SEND_RESPOND_VIA_MESSAGE\">-->\r\n<!--            <intent-filter>-->\r\n<!--                <action android:name=\"android.intent.action.RESPOND_VIA_MESSAGE\" />-->\r\n\r\n<!--                <category android:name=\"android.intent.category.DEFAULT\" />-->\r\n\r\n<!--                <data android:scheme=\"sms\" />-->\r\n<!--                <data android:scheme=\"smsto\" />-->\r\n<!--                <data android:scheme=\"mms\" />-->\r\n<!--                <data android:scheme=\"mmsto\" />-->\r\n<!--            </intent-filter>-->\r\n<!--        </service>-->\r\n\r\n        <service\r\n            android:name=\".Broadcasts.MyFirebaseMessagingService\"\r\n            android:exported=\"false\">\r\n            <intent-filter>\r\n                <action android:name=\"com.google.firebase.MESSAGING_EVENT\" />\r\n            </intent-filter>\r\n        </service>\r\n\r\n        <service\r\n            android:name=\".utils.MyJobService\"\r\n            android:exported=\"true\"\r\n            android:permission=\"android.permission.BIND_JOB_SERVICE\" >\r\n        </service>\r\n\r\n        <meta-data\r\n            android:name=\"com.google.android.gms.ads.APPLICATION_ID\"\r\n            android:value=\"ca-app-pub-8059131308960326~2448689540\"/>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision a80946d2dd0cee5d8857f8a5a99e7a61d83be5ca)
++++ app/src/main/AndroidManifest.xml	(date 1608741242358)
+@@ -6,6 +6,7 @@
+     <uses-permission android:name="android.permission.INTERNET" />
+ 
+     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
++    <uses-permission android:name="android.permission.WAKE_LOCK" />
+     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+ 
+     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />

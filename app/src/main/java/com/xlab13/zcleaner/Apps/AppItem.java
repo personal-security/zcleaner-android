@@ -12,6 +12,7 @@ public class AppItem {
         this.Title = title;
         this.Description = description;
         this.PackageName = packageName;
+        this.Awards = awards;
 
         this.Image = null;
     }
